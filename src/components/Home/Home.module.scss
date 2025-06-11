@@ -1,3 +1,137 @@
+.home {
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 70px; // Add padding equal to header height
+}
+
+.main {
+  padding-top: 2rem; // Reduced from 1% to give more space
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+
+  .imageContainer {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    margin-top: 2rem;
+
+    &:hover {
+      .arrowButton {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  .mainImage {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    max-height: 500px;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+    will-change: opacity;
+  }
+
+  .arrowButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #831100;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.95);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+  }
+
+  .collectionButton {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    margin-bottom: 24px;
+    padding: 12px 32px;
+    background: linear-gradient(90deg, #831100 0%, #b33c1a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(131, 17, 0, 0.18);
+    transition: all 0.3s ease;
+    outline: none;
+    z-index: 2;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    white-space: nowrap;
+    min-width: 200px;
+
+    @media (min-width: 768px) {
+      padding: 16px 44px;
+      font-size: 1.15rem;
+      min-width: 180px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      width: auto;
+      min-width: 160px;
+      max-width: 90%;
+    }
+
+    &:hover {
+      background: linear-gradient(90deg, #b33c1a 0%, #831100 100%);
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 12px 32px rgba(131, 17, 0, 0.28);
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(0.98);
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+}
+
 .homeComponent {
   min-height: 100vh;
   display: flex;
@@ -43,5 +177,91 @@
         }
       }
     }
+  }
+}
+
+.productsSection {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #333;
+  }
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  padding: 0 1rem;
+}
+
+.productItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.productTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.productPrice {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.productTitleLink {
+  text-decoration: none;
+  color: inherit; /* Ensure the color is inherited from .productTitle */
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.error {
+  text-align: center;
+  padding: 1rem;
+  color: #dc3545;
+  background: #f8d7da;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.loadMoreButton {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.8rem 2rem;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background: #333;
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
   }
 } 
