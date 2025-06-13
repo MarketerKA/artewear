@@ -13,7 +13,7 @@ const HomeComponent: React.FC = () => {
   const products = [
     {
       id: 1,
-      image: '/dissection_black/dissection_black_1.jpg',
+      image: '/dissection_black/dissection_black_1-min.jpg',
       title: 'Футболка «brain dissection black»',
       price: 3290,
       description: 'Элегантный тренч с уникальными рюшами, идеально подходящий для создания стильного и неповторимого образа.',
@@ -22,16 +22,24 @@ const HomeComponent: React.FC = () => {
     },
     {
       id: 2,
-      image: '/dissection_white/dissection_white_3.jpg',
+      image: '/dissection_white/dissection_white_3-min.jpg',
       title: 'Футболка «brain dissection white»',
-      price: 3290,
-      description: 'Просторный и удобный шоппер с ярким принтом, идеальный для повседневного использования в городской среде.',
-      sizes: ['XS', 'S', 'M', 'L'],
-      consist: 'Состав: 92% хлопок, 8% лайкра'
+      description: [
+        'вышитый логотип artewear.',
+        'премиального футер',
+        'свободный крой',
+        'круглый вырез горловины с обтачкой кашкорсе',
+        'спущенные плечи',
+        'плотность 240гр'
+      ],
+      price: '1999',
+      sizes: ['S', 'M', 'L', 'XL'],
+      consist: 'Состав: 80% хлопок, 20% полиэстер',
+      color: 'белый'
     },
     {
       id: 3,
-      image: '/spine/spine_3.jpg',
+      image: '/spine/spine_3-min.jpg',
       title: 'Футболка черная «spine»',
       price: 3990,
       description: 'Уютный свитшот с абстрактным принтом, вдохновленным морскими глубинами, для комфортного и стильного образа.',
@@ -40,7 +48,7 @@ const HomeComponent: React.FC = () => {
     },
     {
       id: 4,
-      image: '/aneurysm/aneurysm_4.jpg',
+      image: '/aneurysm/aneurysm_4-min.jpg',
       title: 'Футболка молочная «aneurysm» с велюр эффектом',
       price: 3590,
       description: 'Уютный свитшот с абстрактным принтом, вдохновленным морскими глубинами, для комфортного и стильного образа.',
@@ -72,7 +80,7 @@ const HomeComponent: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <h1>artewear. </h1>
+      <h1 className={styles.mainTitle}>artewear. </h1>
       <p>– для тех, кто меняет мир к лучшему и делает это со стилем.</p>
       <Header />
       <main className={styles.main}>
@@ -105,7 +113,8 @@ const HomeComponent: React.FC = () => {
                     description: product.description, 
                     price: product.price, 
                     sizes: product.sizes, 
-                    consist: product.consist 
+                    consist: product.consist,
+                    color: product.color 
                   }}
                 >
                   <ProductCard
@@ -120,7 +129,8 @@ const HomeComponent: React.FC = () => {
                     description: product.description, 
                     price: product.price, 
                     sizes: product.sizes,
-                    consist: product.consist 
+                    consist: product.consist,
+                    color: product.color 
                   }} 
                   className={styles.productTitleLink}
                 >
