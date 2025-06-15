@@ -18,14 +18,9 @@ const FavoritesModal: React.FC<FavoritesModalProps> = ({ isOpen, onClose }) => {
     return null;
   }
 
-  const handleProductClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onClose();
-  };
-
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+    <div className={`${styles.modalOverlay} ${isOpen ? styles.open : ''}`} onClick={onClose}>
+      <div className={`${styles.modalContent} ${isOpen ? styles.open : ''}`} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeButton} onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
@@ -39,25 +34,30 @@ const FavoritesModal: React.FC<FavoritesModalProps> = ({ isOpen, onClose }) => {
                 <Link 
                   to={`/product/${item.id}`} 
                   state={item}
-                  onClick={handleProductClick}
+                  onClick={(e) => e.stopPropagation()}
                   className={styles.productLink}
                 >
                   <img src={item.image} alt={item.title} className={styles.itemImage} />
                   <div className={styles.itemInfo}>
                     <h3>{item.title}</h3>
-                    <p>{item.price} ₽</p>
                   </div>
                 </Link>
+                <span className={styles.itemPrice}>{item.price} ₽</span>
                 <button 
                   className={styles.removeButton} 
                   onClick={() => removeFromFavorites(item.id)}
                 >
-                  Удалить
+                  <FontAwesomeIcon icon={faTimes} />
                 </button>
               </div>
             ))}
           </div>
         )}
+        <div className={styles.cartSummary}>
+          <Link to="/catalog" className={styles.checkoutButton} onClick={onClose}>
+            Перейти в каталог
+          </Link>
+        </div>
       </div>
     </div>
   );

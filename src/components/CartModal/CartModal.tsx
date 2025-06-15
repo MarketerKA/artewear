@@ -19,16 +19,15 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
 
   const handleProductClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onClose();
   };
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+    <div className={`${styles.modalOverlay} ${isOpen ? styles.open : ''}`} onClick={onClose}>
+      <div className={`${styles.modalContent} ${isOpen ? styles.open : ''}`} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeButton} onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <h2>Корзина</h2>
+        <h2>Ваш заказ</h2>
         {items.length === 0 ? (
           <p>В корзине пока ничего нет.</p>
         ) : (
@@ -46,36 +45,36 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                     <div className={styles.itemInfo}>
                       <h3>{item.title}</h3>
                       <p>Размер: {item.selectedSize}</p>
-                      <p>{item.price} ₽</p>
                     </div>
                   </Link>
                   <div className={styles.quantityControls}>
                     <button 
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.id, item.selectedSize, item.quantity - 1)}
                       className={styles.quantityButton}
                     >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>
                     <span className={styles.quantity}>{item.quantity}</span>
                     <button 
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.selectedSize, item.quantity + 1)}
                       className={styles.quantityButton}
                     >
                       <FontAwesomeIcon icon={faPlus} />
                     </button>
                   </div>
+                  <span className={styles.itemPrice}>{item.price} ₽</span>
                   <button 
                     className={styles.removeButton} 
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => removeFromCart(item.id, item.selectedSize)}
                   >
-                    Удалить
+                    <FontAwesomeIcon icon={faTimes} />
                   </button>
                 </div>
               ))}
             </div>
             <div className={styles.cartSummary}>
               <div className={styles.totalPrice}>
-                <span>Итого:</span>
+                <span>Сумма:</span>
                 <span>{getTotalPrice()} ₽</span>
               </div>
               <button className={styles.checkoutButton}>

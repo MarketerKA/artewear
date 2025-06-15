@@ -17,8 +17,8 @@ export interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (id: number, selectedSize: string) => void;
+  updateQuantity: (id: number, selectedSize: string, quantity: number) => void;
   isInCart: (id: number) => boolean;
   getTotalPrice: () => number;
 }
@@ -59,15 +59,18 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     });
   };
 
-  const removeFromCart = (id: number) => {
-    setItems(prevItems => prevItems.filter(item => item.id !== id));
+  const removeFromCart = (id: number, selectedSize: string) => {
+    setItems(prevItems => prevItems.filter(item => !(item.id === id && item.selectedSize === selectedSize)));
   };
 
-  const updateQuantity = (id: number, quantity: number) => {
-    if (quantity < 1) return;
+  const updateQuantity = (id: number, selectedSize: string, quantity: number) => {
+    if (quantity < 1) {
+      removeFromCart(id, selectedSize);
+      return;
+    }
     setItems(prevItems =>
       prevItems.map(item =>
-        item.id === id ? { ...item, quantity } : item
+        item.id === id && item.selectedSize === selectedSize ? { ...item, quantity } : item
       )
     );
   };

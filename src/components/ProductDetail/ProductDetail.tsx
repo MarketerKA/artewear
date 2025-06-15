@@ -108,14 +108,14 @@ const ProductDetail: React.FC = () => {
   const handleAddToCart = () => {
     if (id && title && price && selectedSize) {
       if (isAddedToCart) {
-        removeFromCart(Number(id));
+        removeFromCart(Number(id), selectedSize);
         setIsAddedToCart(false);
       } else {
         const cartItem = {
           id: Number(id),
           title,
           price: Number(price),
-          image: currentImages[currentImageIndex],
+          image: image,
           description,
           sizes,
           consist,

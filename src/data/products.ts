@@ -61,7 +61,7 @@ export const products: Product[] = [
   },
   {
     id: 3,
-    image: '/spine/spine_3-min.jpg',
+    image: '/spine/spine_2-min.jpg',
     title: 'Футболка черная «spine»',
     price: 3990,
     description: [
