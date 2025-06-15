@@ -10,6 +10,7 @@
     font-weight: 700;
     letter-spacing: -0.5px;
     text-align: center;
+    font-family: 'Playfair Display', serif;
   }
 }
 
@@ -83,8 +84,8 @@
     transform: translateX(-50%);
     margin-bottom: 24px;
     padding: 12px 32px;
-    background: linear-gradient(90deg, #831100 0%, #b33c1a 100%);
-    color: #fff;
+    background: linear-gradient(90deg, #F5F5F5 0%, #E8E8E8 100%);
+    color: #333;
     border: none;
     border-radius: 999px;
     font-size: 1rem;
@@ -92,7 +93,7 @@
     letter-spacing: 0.22em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0 6px 24px rgba(131, 17, 0, 0.18);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     outline: none;
     z-index: 2;
@@ -118,9 +119,9 @@
     }
 
     &:hover {
-      background: linear-gradient(90deg, #b33c1a 0%, #831100 100%);
+      background: linear-gradient(90deg, #E8E8E8 0%, #F5F5F5 100%);
       transform: translateX(-50%) scale(1.05);
-      box-shadow: 0 12px 32px rgba(131, 17, 0, 0.28);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
     }
 
     &:active {
@@ -227,10 +228,10 @@
   margin-bottom: 0.25rem;
 }
 
-.productPrice {
+.productsSection .productPrice {
   font-size: 1.1rem;
   font-weight: 500;
-  color: #666;
+  color: #831100 !important;
   margin-bottom: 1rem;
 }
 

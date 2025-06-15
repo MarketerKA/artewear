@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -37,6 +39,7 @@
     font-size: 1.5rem;
     cursor: pointer;
     color: #333;
+    outline: none;
 
     &:hover {
       color: #831100;
@@ -66,6 +69,7 @@
       text-decoration: none;
       color: inherit;
       cursor: pointer;
+      outline: none;
 
       &:hover {
         .itemInfo {
@@ -108,9 +112,10 @@
       cursor: pointer;
       font-size: 0.9rem;
       white-space: nowrap;
+      outline: none;
 
       &:hover {
-        background-color: darken(#831100, 10%);
+        background-color: color.adjust(#831100, $lightness: -10%);
       }
     }
   }

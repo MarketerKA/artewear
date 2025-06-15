@@ -1,0 +1,149 @@
+.catalog {
+  padding: 0;
+  margin-top: 140px;
+  min-height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collection {
+  width: 100%;
+  max-width: 1400px;
+  margin-bottom: 6rem;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.collectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.collectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #831100;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.collectionDescription {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 500px));
+  gap: 4rem;
+  padding: 0 2rem;
+  width: 100%;
+  justify-content: center;
+
+  &:has(.productItem:only-child) {
+    grid-template-columns: minmax(0, 500px);
+  }
+}
+
+.productItem {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  max-width: 500px;
+}
+
+.productImageWrapper {
+  width: 100%;
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productInfo {
+  text-align: center;
+  width: 100%;
+}
+
+.productTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  color: #333;
+}
+
+.productPrice {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+  color: #831100;
+}
+
+@media (max-width: 1200px) {
+  .productsGrid {
+    grid-template-columns: minmax(0, 500px);
+  }
+}
+
+@media (max-width: 768px) {
+  .collection {
+    margin-bottom: 4rem;
+  }
+
+  .collectionHeader {
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .collectionTitle {
+    font-size: 2rem;
+  }
+
+  .collectionDescription {
+    font-size: 1rem;
+  }
+
+  .productsGrid {
+    gap: 3rem;
+    padding: 0 1rem;
+  }
+
+  .productTitle {
+    font-size: 1.3rem;
+  }
+
+  .productPrice {
+    font-size: 1.1rem;
+  }
+} 

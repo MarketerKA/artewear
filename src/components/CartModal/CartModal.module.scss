@@ -37,6 +37,7 @@
     font-size: 1.5rem;
     cursor: pointer;
     color: #333;
+    outline: none;
 
     &:hover {
       color: #831100;
@@ -116,6 +117,7 @@
         justify-content: center;
         cursor: pointer;
         color: #333;
+        outline: none;
 
         &:hover {
           background-color: #f5f5f5;
@@ -138,9 +140,10 @@
       cursor: pointer;
       font-size: 0.9rem;
       white-space: nowrap;
+      outline: none;
 
       &:hover {
-        background-color: darken(#831100, 10%);
+        background-color: color-mix(in srgb, #831100 90%, black);
       }
     }
   }
@@ -168,9 +171,10 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      outline: none;
 
       &:hover {
-        background-color: darken(#831100, 10%);
+        background-color: color-mix(in srgb, #831100 90%, black);
       }
     }
   }

@@ -6,6 +6,7 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { useFavorites } from '../../context/FavoritesContext';
 import { useCart } from '../../context/CartContext';
+import { productImages } from '../../data/productImages';
 import styles from './ProductDetail.module.scss';
 
 const ProductDetail: React.FC = () => {
@@ -16,47 +17,15 @@ const ProductDetail: React.FC = () => {
   const [isCareInstructionsVisible, setIsCareInstructionsVisible] = useState(false);
   const [isSizeGuideVisible, setIsSizeGuideVisible] = useState(false);
   const [isConsistVisible, setIsConsistVisible] = useState(false);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   const [isFavoriteState, setIsFavoriteState] = useState(false);
-  const { addToCart } = useCart();
-
-  // Define images for dissection_black product
-  const dissectionBlackImages = [
-    '/dissection_black/dissection_black_1-min.jpg',
-    '/dissection_black/dissection_black_2-min.jpg',
-    '/dissection_black/dissection_black_3-min.jpg',
-    '/dissection_black/dissection_black_4-min.jpg',
-    '/dissection_black/dissection_black_5-min.jpg',
-  ];
-
-  // Define images for dissection_white product
-  const dissectionWhiteImages = [
-    '/dissection_white/dissection_white_1-min.jpg',
-    '/dissection_white/dissection_white_2-min.jpg',
-    '/dissection_white/dissection_white_3-min.jpg',
-    '/dissection_white/dissection_white_4-min.jpg',
-    '/dissection_white/dissection_white_5-min.jpg',
-  ];
-
-  const spineImages = [
-    '/spine/spine_1-min.jpg',
-    '/spine/spine_2-min.jpg',
-    '/spine/spine_3-min.jpg',
-    '/spine/spine_4-min.jpg',
-    '/spine/spine_5-min.jpg',
-  ];
-  const aneurysmImages = [
-    '/aneurysm/aneurysm_1-min.jpg',
-    '/aneurysm/aneurysm_2-min.jpg',
-    '/aneurysm/aneurysm_3-min.jpg',
-    '/aneurysm/aneurysm_4-min.jpg',
-    '/aneurysm/aneurysm_5-min.jpg',
-    '/aneurysm/aneurysm_6-min.jpg',
-    '/aneurysm/aneurysm_7-min.jpg',
-    ];
-
+  const { addToCart, removeFromCart, items } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>('');
+
+  // Get current product images
+  const currentImages = id ? productImages[Number(id)] || [image] : [image];
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -77,6 +46,13 @@ const ProductDetail: React.FC = () => {
       setIsFavoriteState(isFavorite(Number(id)));
     }
   }, [id, isFavorite]);
+
+  useEffect(() => {
+    if (id && selectedSize) {
+      const isInCart = items.some(item => item.id === Number(id) && item.selectedSize === selectedSize);
+      setIsAddedToCart(isInCart);
+    }
+  }, [id, selectedSize, items]);
 
   const handleToggleFavorite = () => {
     if (id && title && price) {
@@ -100,22 +76,12 @@ const ProductDetail: React.FC = () => {
   };
 
   const handlePrevImage = () => {
-    const currentImages = Number(id) === 1 ? dissectionBlackImages : 
-                         Number(id) === 2 ? dissectionWhiteImages :
-                         Number(id) === 3 ? spineImages :
-                         Number(id) === 4 ? aneurysmImages :
-                         [image];
     setCurrentImageIndex((prevIndex) => 
       prevIndex === 0 ? currentImages.length - 1 : prevIndex - 1
     );
   };
 
   const handleNextImage = () => {
-    const currentImages = Number(id) === 1 ? dissectionBlackImages : 
-                         Number(id) === 2 ? dissectionWhiteImages :
-                         Number(id) === 3 ? spineImages :
-                         Number(id) === 4 ? aneurysmImages :
-                         [image];
     setCurrentImageIndex((prevIndex) => 
       (prevIndex + 1) % currentImages.length
     );
@@ -145,19 +111,25 @@ const ProductDetail: React.FC = () => {
 
   const handleAddToCart = () => {
     if (id && title && price && selectedSize) {
-      const cartItem = {
-        id: Number(id),
-        title,
-        price: Number(price),
-        image: currentImages[currentImageIndex],
-        description,
-        sizes,
-        consist,
-        color,
-        selectedSize,
-        quantity: 1
-      };
-      addToCart(cartItem);
+      if (isAddedToCart) {
+        removeFromCart(Number(id));
+        setIsAddedToCart(false);
+      } else {
+        const cartItem = {
+          id: Number(id),
+          title,
+          price: Number(price),
+          image: currentImages[currentImageIndex],
+          description,
+          sizes,
+          consist,
+          color,
+          selectedSize,
+          quantity: 1
+        };
+        addToCart(cartItem);
+        setIsAddedToCart(true);
+      }
     }
   };
 
@@ -165,16 +137,10 @@ const ProductDetail: React.FC = () => {
     return <div className={styles.productDetail}>Product details not found. Please navigate from the home page.</div>;
   }
 
-  const currentImages = Number(id) === 1 ? dissectionBlackImages : 
-                       Number(id) === 2 ? dissectionWhiteImages : 
-                       Number(id) === 3 ? spineImages :
-                       Number(id) === 4 ? aneurysmImages :
-                       [image];
-
   return (
     <div className={styles.productDetail}>
       <div className={styles.imageContainer}>
-        {(Number(id) === 1 || Number(id) === 2 || Number(id) === 3 || Number(id) === 4) && (
+        {currentImages.length > 1 && (
           <>
             <button 
               className={styles.arrowButton} 
@@ -208,7 +174,7 @@ const ProductDetail: React.FC = () => {
             </div>
           </>
         )}
-        {Number(id) !== 1 && Number(id) !== 2 && Number(id) !== 3 && Number(id) !== 4 && (
+        {currentImages.length === 1 && (
           <img 
             src={image} 
             alt={title} 
@@ -268,8 +234,6 @@ const ProductDetail: React.FC = () => {
           </div>
         )}
 
-        
-
         <div className={styles.sizeSelection}>
           <h3>Выберите размер:</h3>
           <select 
@@ -289,8 +253,9 @@ const ProductDetail: React.FC = () => {
             className={styles.addToCartButton} 
             onClick={handleAddToCart}
             disabled={!selectedSize}
+            data-added={isAddedToCart}
           >
-            Добавить в корзину
+            {isAddedToCart ? 'Добавлено в корзину' : 'Добавить в корзину'}
           </button>
           <button 
             className={styles.favoriteButton}

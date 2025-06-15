@@ -8,6 +8,11 @@
   right: 0;
   z-index: 1000;
   height: 70px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hidden {
+  transform: translateY(-100%);
 }
 
 .container {
@@ -67,8 +72,9 @@
     li {
       a {
         text-decoration: none;
-        color: #333;
+        color: #831100;
         font-weight: 500;
+
         font-size: 1rem;
         transition: color 0.3s ease;
 

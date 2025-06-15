@@ -11,6 +11,10 @@
   min-height: calc(100vh - 140px);
   color: #000;
 
+  button {
+    outline: none;
+  }
+
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: flex-start;
@@ -340,8 +344,12 @@
     }
 
     &:disabled {
-      background: #ccc;
       cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &[data-added="true"] {
+      background: #666;
     }
   }
 
@@ -350,6 +358,7 @@
     border: none;
     cursor: pointer;
     padding: 0.875rem;
+    outline: none;
 
     svg {
       color: #831100;

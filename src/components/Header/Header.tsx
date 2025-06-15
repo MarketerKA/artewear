@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTelegram } from '@fortawesome/free-brands-svg-icons';
@@ -7,6 +7,25 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY) {
+        setIsVisible(false); // Scrolling down
+      } else {
+        setIsVisible(true); // Scrolling up
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,7 +40,7 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${!isVisible ? styles.hidden : ''}`}>
       <div className={styles.container}>
         <div className={styles.leftSection}>
           <button className={styles.menuButton} onClick={toggleMenu}>
