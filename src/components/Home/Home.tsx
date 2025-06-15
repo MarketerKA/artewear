@@ -38,7 +38,7 @@ const HomeComponent: React.FC = () => {
 
       <main className={styles.main}>
         <div className={styles.imageContainer}>
-          <button className={styles.arrowButton} onClick={prevSlide} style={{ left: '20px' }}>
+          <button className={styles.arrowButton} onClick={prevSlide} style={{ left: '20px', outline: 'none' }}>
             <FontAwesomeIcon icon={faChevronLeft} size="2x" />
           </button>
           <img 
@@ -46,7 +46,7 @@ const HomeComponent: React.FC = () => {
             alt="ArteWear main illustration" 
             className={styles.mainImage} 
           />
-          <button className={styles.arrowButton} onClick={nextSlide} style={{ right: '20px' }}>
+          <button className={styles.arrowButton} onClick={nextSlide} style={{ right: '20px', outline: 'none' }}>
             <FontAwesomeIcon icon={faChevronRight} size="2x" />
           </button>
           <button className={styles.collectionButton} onClick={scrollToProducts}>К коллекции</button>
@@ -71,7 +71,7 @@ const HomeComponent: React.FC = () => {
                   state={product}
                   className={styles.productTitleLink}
                 >
-                  <h3 className={styles.productTitle}>{product.title}</h3>
+                  <h3 className={styles.productTitle} style={{ fontFamily: "'Playfair Display', serif" }}>{product.title}</h3>
                 </Link>
                 <p className={styles.productPrice}>{product.price} ₽</p>
               </div>

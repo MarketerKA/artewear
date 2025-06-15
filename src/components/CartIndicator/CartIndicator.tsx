@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CartIndicator.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from '../../context/CartContext';
 
 interface CartIndicatorProps {
@@ -18,7 +18,7 @@ const CartIndicator: React.FC<CartIndicatorProps> = ({ onOpenModal }) => {
 
   return (
     <div className={styles.cartIndicator} onClick={onOpenModal}>
-      <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+      <FontAwesomeIcon icon={faBagShopping} size="2x" />
       <span className={styles.cartCount}>{totalItems}</span>
     </div>
   );

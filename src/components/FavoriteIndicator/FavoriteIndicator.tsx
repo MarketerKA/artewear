@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './FavoriteIndicator.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { useFavorites } from '../../context/FavoritesContext';
 
 interface FavoriteIndicatorProps {
@@ -17,7 +17,7 @@ const FavoriteIndicator: React.FC<FavoriteIndicatorProps> = ({ onOpenModal }) =>
 
   return (
     <div className={styles.favoriteIndicator} onClick={onOpenModal}>
-      <FontAwesomeIcon icon={faHeartSolid} size="2x" />
+      <FontAwesomeIcon icon={faHeartRegular} size="2x" />
       <span className={styles.favoriteCount}>{favoriteItems.length}</span>
     </div>
   );

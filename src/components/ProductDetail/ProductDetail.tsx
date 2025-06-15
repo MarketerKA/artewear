@@ -87,10 +87,6 @@ const ProductDetail: React.FC = () => {
     );
   };
 
-  const handleSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSize(event.target.value);
-  };
-
   const handleImageClick = () => {
     setIsFullScreen(true);
   };
@@ -217,35 +213,42 @@ const ProductDetail: React.FC = () => {
         <h1 className={styles.title}>{title}</h1>
         {Array.isArray(description) ? (
           <div className={styles.descriptionSection}>
-            <h3>Описание:</h3>
-            <ul>
+            <h3>Описание</h3>
+            <ul className={styles.descriptionList}>
               {description.map((item, index) => (
-                <li key={index}>{item}</li>
+                <li key={index} className={styles.descriptionItem}>
+                  <span className={styles.bulletPoint}>•</span>
+                  <span className={styles.itemText}>{item}</span>
+                </li>
               ))}
             </ul>
           </div>
         ) : (
-          <p className={styles.description}>{description}</p>
+          <div className={styles.descriptionSection}>
+            <h3>Описание</h3>
+            <p className={styles.description}>{description}</p>
+          </div>
         )}
         {color && (
-          <div className={styles.descriptionSection}>
-            <h3>Цвет:</h3>
+          <div className={styles.colorSection}>
+            <h3>Цвет</h3>
             <p className={styles.description}>{color}</p>
           </div>
         )}
 
         <div className={styles.sizeSelection}>
-          <h3>Выберите размер:</h3>
-          <select 
-            value={selectedSize} 
-            onChange={handleSizeChange}
-            className={styles.sizeSelect}
-          >
-            <option value="" disabled>Select a Size</option>
+          <h3>Выберите размер</h3>
+          <div className={styles.sizeButtons}>
             {sizes.map((size: string) => (
-              <option key={size} value={size}>{size}</option>
+              <button
+                key={size}
+                className={`${styles.sizeButton} ${selectedSize === size ? styles.activeSizeButton : ''}`}
+                onClick={() => setSelectedSize(size)}
+              >
+                {size}
+              </button>
             ))}
-          </select>
+          </div>
         </div>
 
         <div className={styles.buttonContainer}>
