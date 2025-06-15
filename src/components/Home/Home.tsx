@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const HomeComponent: React.FC = () => {
-  const images = ['/main3.svg', '/main4.svg'];
+  const images = ['/logos/Group_96.png', '/logos/Group_99.png'];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const products = [
@@ -16,9 +16,17 @@ const HomeComponent: React.FC = () => {
       image: '/dissection_black/dissection_black_1-min.jpg',
       title: 'Футболка «brain dissection black»',
       price: 3290,
-      description: 'Элегантный тренч с уникальными рюшами, идеально подходящий для создания стильного и неповторимого образа.',
+      description: [
+        'вышитый логотип artewear.',
+        'премиального футер',
+        'свободный крой',
+        'круглый вырез горловины с обтачкой кашкорсе',
+        'спущенные плечи',
+        'плотность 240гр'
+      ],
       sizes: ['XS', 'S', 'M', 'L'],
-      consist: 'Состав: 92% хлопок, 8% лайкра'
+      consist: 'Состав: 92% хлопок, 8% лайкра',
+      color: 'черный'
     },
     {
       id: 2,
@@ -32,7 +40,7 @@ const HomeComponent: React.FC = () => {
         'спущенные плечи',
         'плотность 240гр'
       ],
-      price: '1999',
+      price: '3290',
       sizes: ['S', 'M', 'L', 'XL'],
       consist: 'Состав: 80% хлопок, 20% полиэстер',
       color: 'белый'
@@ -42,18 +50,34 @@ const HomeComponent: React.FC = () => {
       image: '/spine/spine_3-min.jpg',
       title: 'Футболка черная «spine»',
       price: 3990,
-      description: 'Уютный свитшот с абстрактным принтом, вдохновленным морскими глубинами, для комфортного и стильного образа.',
+      description: [
+        'вышитый логотип artewear.',
+        'премиального футер',
+        'свободный крой',
+        'круглый вырез горловины с обтачкой кашкорсе',
+        'спущенные плечи',
+        'плотность 240гр'
+      ],
       sizes: ['S', 'M', 'L', 'XL'],
-      consist: 'Состав: 92% хлопок, 8% лайкра'
+      consist: 'Состав: 80% хлопок, 20% полиэстер',
+      color: 'черный'
     },
     {
       id: 4,
       image: '/aneurysm/aneurysm_4-min.jpg',
       title: 'Футболка молочная «aneurysm» с велюр эффектом',
       price: 3590,
-      description: 'Уютный свитшот с абстрактным принтом, вдохновленным морскими глубинами, для комфортного и стильного образа.',
+      description: [
+        'вышитый логотип artewear.',
+        'премиального футер',
+        'свободный крой',
+        'круглый вырез горловины с обтачкой кашкорсе',
+        'спущенные плечи',
+        'плотность 240гр'
+      ],
       sizes: ['S', 'M', 'L', 'XL'],
-      consist: 'Состав: 92% хлопок, 8% лайкра'
+      consist: 'Состав: 80% хлопок, 20% полиэстер',
+      color: 'белый'
     }
   ];
 
@@ -80,9 +104,10 @@ const HomeComponent: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <h1 className={styles.mainTitle}>artewear. </h1>
-      <p>– для тех, кто меняет мир к лучшему и делает это со стилем.</p>
+      
+      
       <Header />
+
       <main className={styles.main}>
         <div className={styles.imageContainer}>
           <button className={styles.arrowButton} onClick={prevSlide} style={{ left: '20px' }}>
@@ -101,7 +126,8 @@ const HomeComponent: React.FC = () => {
         
         
         <section ref={productsSectionRef} className={styles.productsSection}>
-          <h2>Наши продукты</h2>
+        <h1 className={styles.mainTitle}>artewear. </h1>
+        <p>– для тех, кто меняет мир к лучшему и делает это со стилем.</p>
           <div className={styles.productsGrid}>
             {products.map((product) => (
               <div key={product.id} className={styles.productItem}>

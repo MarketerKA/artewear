@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faTimes, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { useFavorites } from '../../context/FavoritesContext';
+import { useCart } from '../../context/CartContext';
 import styles from './ProductDetail.module.scss';
 
 const ProductDetail: React.FC = () => {
@@ -11,6 +15,10 @@ const ProductDetail: React.FC = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isCareInstructionsVisible, setIsCareInstructionsVisible] = useState(false);
   const [isSizeGuideVisible, setIsSizeGuideVisible] = useState(false);
+  const [isConsistVisible, setIsConsistVisible] = useState(false);
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const [isFavoriteState, setIsFavoriteState] = useState(false);
+  const { addToCart } = useCart();
 
   // Define images for dissection_black product
   const dissectionBlackImages = [
@@ -64,6 +72,33 @@ const ProductDetail: React.FC = () => {
     }
   }, [sizes]);
 
+  useEffect(() => {
+    if (id) {
+      setIsFavoriteState(isFavorite(Number(id)));
+    }
+  }, [id, isFavorite]);
+
+  const handleToggleFavorite = () => {
+    if (id && title && price) {
+      if (isFavoriteState) {
+        removeFromFavorites(Number(id));
+      } else {
+        const favoriteItem = {
+          id: Number(id),
+          title,
+          price: Number(price),
+          image: currentImages[currentImageIndex],
+          description,
+          sizes,
+          consist,
+          color
+        };
+        addToFavorites(favoriteItem);
+      }
+      setIsFavoriteState(!isFavoriteState);
+    }
+  };
+
   const handlePrevImage = () => {
     const currentImages = Number(id) === 1 ? dissectionBlackImages : 
                          Number(id) === 2 ? dissectionWhiteImages :
@@ -106,6 +141,24 @@ const ProductDetail: React.FC = () => {
   const handleFullScreenNext = (e: React.MouseEvent) => {
     e.stopPropagation();
     handleNextImage();
+  };
+
+  const handleAddToCart = () => {
+    if (id && title && price && selectedSize) {
+      const cartItem = {
+        id: Number(id),
+        title,
+        price: Number(price),
+        image: currentImages[currentImageIndex],
+        description,
+        sizes,
+        consist,
+        color,
+        selectedSize,
+        quantity: 1
+      };
+      addToCart(cartItem);
+    }
   };
 
   if (!image || !title || !description || !price) {
@@ -208,19 +261,17 @@ const ProductDetail: React.FC = () => {
         ) : (
           <p className={styles.description}>{description}</p>
         )}
-        <div className={styles.descriptionSection}>
-          <h3>Состав:</h3>
-          <p className={styles.description}>{consist.replace('Состав:', '').trim()}</p>
-        </div>
         {color && (
           <div className={styles.descriptionSection}>
             <h3>Цвет:</h3>
             <p className={styles.description}>{color}</p>
           </div>
         )}
+
         
+
         <div className={styles.sizeSelection}>
-          <h3>Select Size:</h3>
+          <h3>Выберите размер:</h3>
           <select 
             value={selectedSize} 
             onChange={handleSizeChange}
@@ -232,12 +283,26 @@ const ProductDetail: React.FC = () => {
             ))}
           </select>
         </div>
-        <button 
-          className={styles.addToCartButton}
-          disabled={!selectedSize}
-        >
-          Add to Cart
-        </button>
+
+        <div className={styles.buttonContainer}>
+          <button 
+            className={styles.addToCartButton} 
+            onClick={handleAddToCart}
+            disabled={!selectedSize}
+          >
+            Добавить в корзину
+          </button>
+          <button 
+            className={styles.favoriteButton}
+            onClick={handleToggleFavorite}
+          >
+            {isFavoriteState ? (
+              <FontAwesomeIcon icon={faHeartSolid} size="2x" />
+            ) : (
+              <FontAwesomeIcon icon={faHeartRegular} size="2x" />
+            )}
+          </button>
+        </div>
         <p className={styles.price}>{price} ₽</p>
 
         <div className={styles.careInstructions}>
@@ -279,6 +344,22 @@ const ProductDetail: React.FC = () => {
             <div className={styles.sizeGuideImage}>
               <img src="/size_table.png" alt="Size Guide" />
             </div>
+          )}
+        </div>
+
+        <div className={styles.consistSection}>
+          <button 
+            className={styles.consistToggle}
+            onClick={() => setIsConsistVisible(!isConsistVisible)}
+          >
+            <h3>Состав</h3>
+            <FontAwesomeIcon 
+              icon={isConsistVisible ? faChevronUp : faChevronDown} 
+              className={styles.toggleIcon}
+            />
+          </button>
+          {isConsistVisible && (
+            <p className={styles.description}>{consist.replace('Состав:', '').trim()}</p>
           )}
         </div>
       </div>

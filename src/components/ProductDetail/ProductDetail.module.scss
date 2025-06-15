@@ -120,19 +120,22 @@
   z-index: 1;
   padding-left: 1rem;
 
-  h1 {
+  .title {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     color: #831100;
     margin: 0;
     padding: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     position: relative;
     z-index: 2;
     font-weight: 600;
+    text-align: center;
 
     @media (min-width: 768px) {
       font-size: 2.5rem;
+      text-align: left;
+      margin-bottom: 2rem;
     }
   }
 
@@ -150,9 +153,10 @@
   .price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #000;
+    color: #831100;;
     margin: 0;
     padding: 0;
+    margin-top: 0rem;
     
     @media (min-width: 768px) {
       font-size: 1.8rem;
@@ -271,6 +275,7 @@
     padding: 0.5rem 0;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
+    
 
     strong {
       font-weight: 600;
@@ -279,7 +284,7 @@
   }
 
   .sizeSelection {
-    margin-top: 0.25rem;
+    margin-top: -0.5rem;
 
     h3 {
       font-size: 1.1rem;
@@ -290,7 +295,7 @@
     }
 
     select {
-      width: 100%;
+      width: 50%;
       padding: 0.75rem;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -312,6 +317,13 @@
     }
   }
 
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 0.5rem;
+  }
+
   .addToCartButton {
     background: #000;
     color: white;
@@ -320,17 +332,27 @@
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 0.5rem;
-    width: 100%;
+    width: 40%;
 
     @media (min-width: 768px) {
       padding: 1rem 2rem;
       font-size: 1.1rem;
     }
 
-    &:hover {
-      background: #333;
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .favoriteButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.875rem;
+
+    svg {
+      color: #831100;
     }
   }
 }
@@ -431,5 +453,49 @@
       display: block;
       border-radius: 4px;
     }
+  }
+}
+
+.consistSection {
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  .consistToggle {
+    width: 100%;
+    padding: 16px 20px;
+    background: #ffffff;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f8f8f8;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #000;
+      letter-spacing: 0.3px;
+    }
+
+    .toggleIcon {
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  .description {
+    padding: 16px 20px;
+    margin: 0;
+    background: #ffffff;
+    border-top: 1px solid #e0e0e0;
   }
 } 
